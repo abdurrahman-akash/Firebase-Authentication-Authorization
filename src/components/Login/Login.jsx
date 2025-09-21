@@ -1,12 +1,13 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
   const authContext = useContext(AuthContext);
-  const { loginUser } = authContext;
+  const { loginUser, loading } = authContext;
   const [showPassword, setShowPassword] = useState(false);
+
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -22,7 +23,7 @@ const Login = () => {
         toast.success(`Login successful!`, {
           position: "top-right",
           duration: 4000,
-          icon: '🎉',
+          icon: "🎉",
         });
       })
       .catch((error) => {
@@ -31,11 +32,14 @@ const Login = () => {
         toast.error(`Login failed!`, {
           position: "top-right",
           duration: 4000,
-          icon: '❌',
+          icon: "❌",
         });
       });
-
   };
+
+  if(authContext.user){
+    return <Navigate to="/profile" />
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
@@ -128,9 +132,17 @@ const Login = () => {
               {/* Sign In Button */}
               <button
                 type="submit"
+                disabled={loading}
                 className="btn w-full bg-gradient-to-r from-blue-500 to-green-400 text-white font-semibold rounded-lg shadow-md hover:from-blue-600 hover:to-green-500 border-0 transition-all duration-200"
               >
-                Sign In
+                {loading ? (
+                  <>
+                    <span className="loading loading-spinner loading-sm"></span>
+                    Signing In...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
               </button>
             </form>
 

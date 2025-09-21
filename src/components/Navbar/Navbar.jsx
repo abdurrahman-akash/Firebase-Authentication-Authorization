@@ -17,6 +17,11 @@ const Navbar = () => {
       <li>
         <NavLink to="/register">Register</NavLink>
       </li>
+      {user ? (
+        <li>
+          <NavLink to="/profile">Profile</NavLink>
+        </li>
+      ) : null}
     </>
   );
 

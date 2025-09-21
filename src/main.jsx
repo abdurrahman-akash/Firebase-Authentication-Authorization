@@ -9,6 +9,8 @@ import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import AuthProviders from './providers/AuthProviders'
 import Toaster from './components/Toaster/Toaster'
+import Profile from './components/Profile/Profile'
+import PrivateRoute from './routes/PrivateRoute'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/profile',
+        element: <PrivateRoute><Profile /></PrivateRoute>,
       },
     ],
   },

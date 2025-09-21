@@ -18,12 +18,12 @@ const Register = () => {
     console.log(fullName, email, password);
 
     // Create user with email and password
-    createUser(email, password)
+    createUser(email, password, fullName)
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
         // Success Notification
-        toast.success(`Registration successful!`, {
+        toast.success(`Registration successful! Welcome ${fullName}!`, {
           position: "top-right",
           duration: 4000,
           icon: '🎉',
@@ -32,7 +32,7 @@ const Register = () => {
       .catch((error) => {
         console.log(error);
         // Error Notification
-        toast.error(`Registration failed!`, {
+        toast.error(`Registration failed: ${error.message}`, {
           position: "top-right",
           duration: 4000,
           icon: '❌',
